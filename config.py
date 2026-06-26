@@ -29,7 +29,7 @@ print("--- Fin de Depuración (Carga Manual) ---")
 class Config:
     SECRET_KEY = env_vars.get('SECRET_KEY', 'UnaCadenaSecretaMuySeguraParaElProyecto') 
     
-    # Se añade la lectura explícita del puerto para servidores en la nube
+    # Se añade la lectura explícita del puerto para servidores en la nube: {env_vars.get('MYSQL_PORT', '24339')}
     SQLALCHEMY_DATABASE_URI = (
         f"mysql+mysqlconnector://{env_vars.get('MYSQL_USER')}:{env_vars.get('MYSQL_PASSWORD')}"
         f"@{env_vars.get('MYSQL_HOST')}:{env_vars.get('MYSQL_PORT', '24339')}/{env_vars.get('MYSQL_DB')}?charset=utf8mb4"
