@@ -1,37 +1,16 @@
 import os
+from dotenv import load_dotenv
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-dotenv_path = os.path.join(basedir, '.env')
-
-env_vars = {}
-
-try:
-    with open(dotenv_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith('#'):
-                if '=' in line:
-                    key, value = line.split('=', 1)
-                    env_vars[key.strip()] = value.strip()
-except FileNotFoundError:
-    print(f"Advertencia: El archivo .env no se encontró en {dotenv_path}. Usando valores por defecto o variables de entorno del sistema.")
-except Exception as e:
-    print(f"Error al leer el archivo .env: {e}")
-
-print("--- Depuración de .env (Carga Manual) ---")
-print(f"MYSQL_HOST: {env_vars.get('MYSQL_HOST')}")
-print(f"MYSQL_USER: {env_vars.get('MYSQL_USER')}")
-print(f"MYSQL_PASSWORD: {env_vars.get('MYSQL_PASSWORD')}")
-print(f"MYSQL_DB: {env_vars.get('MYSQL_DB')}")
-print(f"SECRET_KEY: {env_vars.get('SECRET_KEY')}")
-print("--- Fin de Depuración (Carga Manual) ---")
+# Esto carga tu archivo .env cuando trabajas localmente en tu Mac.
+# Cuando está en Render, simplemente lo ignora y toma las variables del panel.
+load_dotenv()
 
 class Config:
-    SECRET_KEY = env_vars.get('SECRET_KEY', 'UnaCadenaSecretaMuySeguraParaElProyecto') 
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'UnaCadenaSecretaMuySeguraParaElProyecto') 
     
-    # Se añade la lectura explícita del puerto para servidores en la nube: {env_vars.get('MYSQL_PORT', '24339')}
+    # Se utiliza os.environ.get() para leer desde el servidor de Render
     SQLALCHEMY_DATABASE_URI = (
-        f"mysql+mysqlconnector://{env_vars.get('MYSQL_USER')}:{env_vars.get('MYSQL_PASSWORD')}"
-        f"@{env_vars.get('MYSQL_HOST')}:{env_vars.get('MYSQL_PORT', '24339')}/{env_vars.get('MYSQL_DB')}?charset=utf8mb4"
+        f"mysql+mysqlconnector://{os.environ.get('MYSQL_USER')}:{os.environ.get('MYSQL_PASSWORD')}"
+        f"@{os.environ.get('MYSQL_HOST')}:{os.environ.get('MYSQL_PORT', '24339')}/{os.environ.get('MYSQL_DB')}?charset=utf8mb4"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
