@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Información - {{ droga.nombre }}{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Encabezado de la vista de edición -->
+    <div style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+        <span class="overline">Módulo de Edición</span>
+        <h1 style="color: var(--brand-primary); font-size: 2.2rem; margin: 0 0 10px 0;">Actualizar Sustancia</h1>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin: 0;">
+            Modificando el registro público de: <strong>{{ droga.nombre }}</strong>
+        </p>
+    </div>
+
+    <!-- Formulario de Edición -->
+    <form method="POST">
+        <div>
+            <label for="nombre">Nombre de la Sustancia</label>
+            <input type="text" id="nombre" name="nombre" value="{{ droga.nombre }}" placeholder="Ej. Alcohol, Nicotina..." required>
+        </div>
+
+        <div>
+            <label for="descripcion">Descripción Informativa</label>
+            <textarea id="descripcion" name="descripcion" rows="6" placeholder="Escribe aquí los detalles y características principales...">{{ droga.descripcion or '' }}</textarea>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <a href="{{ url_for('index') }}" class="btn btn-outline" style="flex: 1; text-align: center;">Cancelar</a>
+            <button type="submit" class="btn btn-primary" style="flex: 2;">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

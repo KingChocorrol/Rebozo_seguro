@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Ficha Técnica - {{ droga.nombre }}{% endblock %}
+
+{% block content %}
+<div class="detail-wrapper">
+    <!-- Encabezado de la Ficha -->
+    <div class="detail-header">
+        <span class="detail-category">{{ droga.tipo_droga.nombre if droga.tipo_droga else 'Categoría no asignada' }}</span>
+        <h1 class="detail-title">{{ droga.nombre }}</h1>
+        <p class="detail-subtitle">{{ droga.nombre_cientifico if droga.nombre_cientifico else 'Nombre científico no especificado' }}</p>
+    </div>
+
+    <!-- Contenido Principal a Dos Columnas -->
+    <div class="detail-grid">
+        
+        <!-- Columna Izquierda: Información Central -->
+        <div class="detail-main-col">
+            <div class="detail-card">
+                <h3>Descripción General</h3>
+                <p class="detail-text">{{ droga.descripcion if droga.descripcion else 'Información detallada en proceso de actualización por nuestra comunidad.' }}</p>
+
+                <div class="detail-attributes">
+                    <div class="attr-item">
+                        <span class="attr-label">Forma de Consumo</span>
+                        <span class="attr-value">{{ droga.forma_consumo if droga.forma_consumo else 'No documentada' }}</span>
+                    </div>
+                    <div class="attr-item">
+                        <span class="attr-label">Nivel de Riesgo</span>
+                        <!-- Reutilizamos la etiqueta dinámica de colores de tu CSS -->
+                        <span class="risk-badge {{ (droga.riesgo_adiccion or 'desconocido')|lower|replace(' ', '-') }}" style="position: static; display: inline-block; margin-top: 5px;">
+                            {{ droga.riesgo_adiccion if droga.riesgo_adiccion else 'No clasificado' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h3>Efectos Principales Reportados</h3>
+                <p class="detail-text">{{ droga.efectos_principales if droga.efectos_principales else 'No hay registros de efectos principales en este momento.' }}</p>
+            </div>
+        </div>
+
+        <!-- Columna Derecha: Relaciones y Listados -->
+        <div class="detail-side-col">
+            <div class="detail-card list-card">
+                <h3>Riesgos Relacionados</h3>
+                <ul class="clean-list">
+                    {% for dr in droga.riesgos_relacionados %}
+                        <li>
+                            <strong>{{ dr.riesgo.nombre }}</strong>
+                            <span class="meta-tag">Probabilidad: {{ dr.probabilidad }}</span>
+                        </li>
+                    {% else %}
+                        <li class="empty-list-item">No hay riesgos documentados en el sistema.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="detail-card list-card">
+                <h3>Efectos Específicos</h3>
+                <ul class="clean-list">
+                    {% for de in droga.efectos_relacionados %}
+                        <li>
+                            <strong>{{ de.efecto.nombre }}</strong>
+                            <span class="meta-tag">Intensidad {{ de.intensidad }} | Duración: {{ de.duracion }}</span>
+                        </li>
+                    {% else %}
+                        <li class="empty-list-item">No hay efectos detallados vinculados.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="detail-card list-card">
+                <h3>Opciones de Tratamiento</h3>
+                <ul class="clean-list">
+                    {% for dt in droga.tratamientos_relacionados %}
+                        <li>
+                            <strong>{{ dt.tratamiento.nombre }}</strong>
+                            {% if dt.recomendado %}
+                                <span class="recommended-tag">Recomendado</span>
+                            {% endif %}
+                        </li>
+                    {% else %}
+                        <li class="empty-list-item">No hay tratamientos registrados.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Metadatos del Sistema y Botón de Regreso -->
+    <div class="detail-footer">
+        <div class="metadata-info">
+            <p><strong>Registro creado por:</strong> {{ droga.creador.nombre_usuario if droga.creador else 'Sistema / Anónimo' }} ({{ droga.fecha_creacion }})</p>
+            <p><strong>Última actualización:</strong> {{ droga.modificador.nombre_usuario if droga.modificador else 'Sin modificaciones' }} ({{ droga.fecha_modificacion if droga.fecha_modificacion else 'N/A' }})</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="btn btn-outline">Volver al Catálogo</a>
+    </div>
+</div>
+{% endblock %}

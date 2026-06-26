@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Edición{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="profile-header">
+        <div class="profile-info">
+            <span class="role-badge editor-badge">Nivel: Editor</span>
+            <h1 class="profile-name">Bienvenido, {{ user.nombre_usuario }}</h1>
+            <p class="profile-desc">Tienes permisos autorizados para mantener actualizada la información pública del proyecto.</p>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2 class="section-heading">Módulos de Publicación</h2>
+        <div class="dashboard-grid">
+            <a href="{{ url_for('index') }}#catalogo" class="dashboard-card">
+                <div class="card-icon-placeholder">E</div>
+                <div class="card-text">
+                    <h3>Actualizar Catálogo</h3>
+                    <p>Modifica detalles, descripciones y riesgos de las sustancias publicadas.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Consultoría{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="profile-header">
+        <div class="profile-info">
+            <span class="role-badge consultor-badge">Nivel: Consultor</span>
+            <h1 class="profile-name">Bienvenido, {{ user.nombre_usuario }}</h1>
+            <p class="profile-desc">Tu cuenta tiene permisos de solo lectura para auditar la información del sistema.</p>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2 class="section-heading">Módulos de Auditoría</h2>
+        <div class="dashboard-grid">
+            <a href="{{ url_for('index') }}#catalogo" class="dashboard-card">
+                <div class="card-icon-placeholder">L</div>
+                <div class="card-text">
+                    <h3>Explorar Catálogo</h3>
+                    <p>Revisa el registro completo de sustancias y tratamientos detallados.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

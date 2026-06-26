@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="profile-header">
+        <div class="profile-info">
+            <span class="role-badge admin-badge">Nivel: Administrador</span>
+            <h1 class="profile-name">Bienvenido, {{ user.nombre_usuario }}</h1>
+            <p class="profile-desc">Tienes acceso total al control del sistema, gestión de la base de datos comunitaria y configuración de la plataforma.</p>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2 class="section-heading">Módulos del Sistema</h2>
+        <div class="dashboard-grid">
+            <a href="{{ url_for('index') }}#catalogo" class="dashboard-card">
+                <div class="card-icon-placeholder">C</div>
+                <div class="card-text">
+                    <h3>Gestión de Catálogo</h3>
+                    <p>Administra las sustancias, descripciones y niveles de riesgo.</p>
+                </div>
+            </a>
+            <a href="{{ url_for('add_test_user') }}" class="dashboard-card">
+                <div class="card-icon-placeholder">U</div>
+                <div class="card-text">
+                    <h3>Usuarios de Prueba</h3>
+                    <p>Herramienta de desarrollo: Restaura usuarios base del sistema.</p>
+                </div>
+            </a>
+            <a href="{{ url_for('generate_token', user_id=user.id) }}" class="dashboard-card">
+                <div class="card-icon-placeholder">T</div>
+                <div class="card-text">
+                    <h3>Generar Token</h3>
+                    <p>Crea un token de acceso seguro para la sesión actual.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de gestión de información sobre drogas, riesgos y tratamientos.">
+    <title>Sistema de Drogas - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='imagenes/cristo.png') }}" alt="Logo Rebozo Seguro" class="nav-logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Inicio</a>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.rol == 'admin' %}
+                        <a href="{{ url_for('admin_dashboard') }}">Panel Admin</a>
+                    {% elif current_user.rol == 'editor' %}
+                        <a href="{{ url_for('editor_dashboard') }}">Panel Editor</a>
+                    {% elif current_user.rol == 'consultor' %}
+                        <a href="{{ url_for('consultor_dashboard') }}">Panel Consultor</a>
+                    {% endif %}
+                    <span class="user-badge">Hola, {{ current_user.nombre_usuario }}</span>
+                    <a href="{{ url_for('logout') }}" class="nav-btn-logout">Cerrar Sesión</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-btn-login">Iniciar Sesión</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+    </footer>  
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

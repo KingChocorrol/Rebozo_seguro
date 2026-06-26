@@ -1,0 +1,812 @@
+/* ==========================================================================
+   VARIABLES GLOBALES (Paleta "Rebozo Seguro")
+   ========================================================================== */
+:root {
+    /* Paleta de Colores */
+    --brand-primary: #8E3B29;      /* Terracota profundo */
+    --brand-secondary: #D48166;    /* Arcilla suave */
+    --bg-page: #FBF9F6;          /* Crema muy claro */
+    --bg-surface: #FFFFFF;         /* Blanco puro para tarjetas */
+    
+    /* Textos */
+    --text-dark: #2C2422;
+    --text-muted: #6B5E5B;
+    --text-light: #A39692;
+    
+    /* Estados y Riesgos */
+    --risk-low: #3E8A5A;         /* Verde */
+    --risk-mod: #F5A623;         /* Naranja/Amarillo */
+    --risk-high: #E06D3D;        /* Naranja oscuro */
+    --risk-crit: #D93838;        /* Rojo */
+    --risk-unknown: #9E9E9E;     /* Gris para no clasificados */
+    
+    /* Sombras y Radios */
+    --shadow-soft: 0 8px 30px rgba(142, 59, 41, 0.06);
+    --shadow-hover: 0 15px 40px rgba(142, 59, 41, 0.12);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+}
+
+/* ==========================================================================
+   BASE Y TIPOGRAFÍA
+   ========================================================================== */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navegación con efecto Glassmorphism */
+header {
+    background-color: rgba(142, 59, 41, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Soporte Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.nav-brand a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Nueva clase para controlar el tamaño y bordes del logo */
+.nav-logo {
+    max-height: 55px; 
+    width: auto;
+    object-fit: contain;
+    border-radius: 12px; /* <-- Esta línea redondea los bordes */
+    transition: transform 0.2s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-logo:hover {
+    transform: scale(1.05); /* Pequeño efecto al pasar el ratón */
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+nav span {
+    color: #FDFDFD;
+    font-size: 0.85rem;
+    background: rgba(0,0,0,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ==========================================================================
+   SECCIÓN HERO (PORTADA)
+   ========================================================================== */
+.hero-section {
+    background: linear-gradient(135deg, #FFFDFB 0%, #F5EAE6 100%);
+    border-radius: var(--radius-lg);
+    padding: 80px 40px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 60px;
+    border: 1px solid rgba(212, 129, 102, 0.2);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge-pill {
+    background-color: rgba(212, 129, 102, 0.15);
+    color: var(--brand-primary);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--brand-primary);
+    margin: 0 0 10px 0;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: var(--text-muted);
+    font-weight: 400;
+    margin: 0 0 25px 0;
+}
+
+.hero-text {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 40px;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   PILARES DE LA COMUNIDAD
+   ========================================================================== */
+.features-header, .catalog-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.overline {
+    color: var(--brand-secondary);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.features-header h3, .catalog-header h3 {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.feature-card {
+    background: var(--bg-surface);
+    padding: 40px 30px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h4 {
+    color: var(--brand-primary);
+    font-size: 1.3rem;
+    margin: 0 0 10px 0;
+}
+
+/* ==========================================================================
+   CATÁLOGO DE SUSTANCIAS (TARJETAS)
+   ========================================================================== */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.info-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.info-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    padding: 30px 30px 15px 30px;
+    position: relative;
+    border-bottom: 1px solid #F0F0F0;
+}
+
+.risk-badge {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+/* Colores dinámicos para los riesgos */
+.risk-badge.bajo { background-color: var(--risk-low); }
+.risk-badge.moderado { background-color: var(--risk-mod); }
+.risk-badge.alto { background-color: var(--risk-high); }
+.risk-badge.muy-alto { background-color: var(--risk-crit); }
+.risk-badge.desconocido { background-color: var(--risk-unknown); } /* Fallback */
+
+.card-title {
+    font-size: 1.6rem;
+    color: var(--brand-primary);
+    margin: 0 0 5px 0;
+    padding-right: 90px;
+}
+
+.card-category {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.card-body {
+    padding: 20px 30px;
+    flex-grow: 1; 
+}
+
+.card-body p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.card-footer {
+    padding: 20px 30px 30px 30px;
+    background-color: #FAFAFA;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #E0E0E0;
+    align-items: center;
+}
+
+/* ==========================================================================
+   BOTONES GLOBALES
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-size: 0.95rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+.btn-primary {
+    background-color: var(--brand-primary);
+    color: #FFF;
+}
+.btn-primary:hover { background-color: #7A3122; color: #FFF; }
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--brand-primary);
+    border: 2px solid var(--brand-primary);
+}
+.btn-outline:hover { background-color: rgba(142, 59, 41, 0.05); }
+
+.btn-warning { background-color: var(--risk-mod); color: #FFF; }
+.btn-warning:hover { background-color: #D98C15; }
+
+.btn-danger { background-color: var(--risk-crit); color: #FFF; }
+.btn-danger:hover { background-color: #B82A2A; }
+
+/* ==========================================================================
+   BANNER DE AYUDA Y OTROS
+   ========================================================================== */
+.support-banner {
+    background-color: var(--brand-primary);
+    background-image: radial-gradient(circle at top right, var(--brand-secondary), var(--brand-primary));
+    color: #FFF;
+    padding: 50px 30px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin-top: 80px;
+}
+
+.support-banner h3 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+}
+
+.phone-number {
+    display: inline-block;
+    background: #FFF;
+    color: var(--brand-primary);
+    padding: 15px 40px;
+    border-radius: 40px;
+    font-size: 1.5rem;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 2px dashed #E0E0E0;
+}
+
+.empty-icon { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
+
+/* ==========================================================================
+   FORMULARIOS (Compatibilidad con login/editar)
+   ========================================================================== */
+/* CORRECCIÓN: Evitamos que el estilo aplique al formulario del botón Eliminar */
+form:not(.delete-form) {
+    background: var(--bg-surface);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    max-width: 600px;
+    margin: 0 auto; /* Centra los formularios de Login/Edición */
+}
+
+/* CORRECCIÓN: Reinicio limpio para el formulario del botón Eliminar */
+form.delete-form {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    display: inline-block;
+}
+
+form label { display: block; margin-bottom: 8px; font-weight: 600; }
+
+form input[type="text"], 
+form input[type="password"], 
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #D1D1D1;
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--brand-secondary);
+    box-shadow: 0 0 0 3px rgba(212, 129, 102, 0.2);
+}
+
+/* Flashes / Alertas (Corregido para que no pierdan margen) */
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flashes li {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   DASHBOARD PROFESIONAL (ADMIN, EDITOR, CONSULTOR)
+   ========================================================================== */
+.dashboard-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Encabezado del Perfil (Hero del Dashboard) */
+.profile-header {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    color: #fff;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
+}
+
+.role-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Colores específicos por nivel (Se oscurecen sutilmente) */
+.admin-badge { background-color: rgba(142, 59, 41, 0.4); border-color: rgba(255, 255, 255, 0.4); }
+.editor-badge { background-color: rgba(212, 129, 102, 0.4); border-color: rgba(255, 255, 255, 0.4); }
+.consultor-badge { background-color: rgba(62, 138, 90, 0.4); border-color: rgba(255, 255, 255, 0.4); }
+
+.profile-name {
+    margin: 0 0 10px 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-desc {
+    margin: 0;
+    font-size: 1.05rem;
+    opacity: 0.95;
+    max-width: 600px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+/* Sección de Tarjetas */
+.section-heading {
+    font-size: 1.4rem;
+    color: var(--brand-primary);
+    margin: 0 0 25px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(142, 59, 41, 0.1);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Estilo de Tarjetas Interactivas */
+.dashboard-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dashboard-card:hover:not(.disabled-card) {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(142, 59, 41, 0.1);
+    border-color: rgba(212, 129, 102, 0.3);
+}
+
+/* Monograma Minimalista (Reemplazo elegante para iconos) */
+.card-icon-placeholder {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(212, 129, 102, 0.1);
+    color: var(--brand-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dashboard-card:hover:not(.disabled-card) .card-icon-placeholder {
+    background-color: var(--brand-primary);
+    color: #fff;
+}
+
+.card-text h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.15rem;
+    color: var(--text-dark);
+}
+
+.card-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Tarjetas Inactivas */
+.disabled-card {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #FAFAFA;
+}
+
+.disabled-card .card-icon-placeholder {
+    background-color: #E0E0E0;
+    color: #9E9E9E;
+}
+
+/* ==========================================================================
+   FICHA TÉCNICA DE SUSTANCIAS (VER_DROGA)
+   ========================================================================== */
+.detail-wrapper {
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.detail-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid rgba(142, 59, 41, 0.1);
+}
+
+.detail-category {
+    display: inline-block;
+    color: var(--brand-secondary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.detail-title {
+    color: var(--brand-primary);
+    font-size: 3rem;
+    margin: 0 0 5px 0;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.detail-subtitle {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 0;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.detail-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+    margin-bottom: 30px;
+}
+
+.detail-card h3 {
+    color: var(--brand-primary);
+    font-size: 1.3rem;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #EAEAEA;
+}
+
+.detail-text {
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin: 0 0 25px 0;
+}
+
+.detail-attributes {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    background: #FAFAFA;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid #F0F0F0;
+}
+
+.attr-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.attr-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.attr-value {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Listas limpias para la columna lateral */
+.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.clean-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #F5F5F5;
+    display: flex;
+    flex-direction: column;
+}
+
+.clean-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.clean-list li strong {
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.meta-tag {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+/* Etiqueta para Tratamientos Recomendados */
+.recommended-tag {
+    display: inline-block;
+    background-color: rgba(62, 138, 90, 0.1);
+    color: var(--risk-low);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-top: 5px;
+    width: fit-content;
+}
+
+.empty-list-item {
+    color: var(--text-light) !important;
+    font-style: italic;
+}
+
+/* Pie de la ficha (Metadatos) */
+.detail-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 2px solid rgba(142, 59, 41, 0.1);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.metadata-info p {
+    margin: 0 0 5px 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Ajuste Responsivo Específico */
+@media (max-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    .detail-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVO (MÓVILES)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .hero-section { padding: 50px 20px; }
+    .hero-actions { flex-direction: column; }
+    .btn { width: 100%; box-sizing: border-box; }
+    nav { flex-direction: column; text-align: center; padding: 15px; }
+    nav a, nav span { margin: 5px 0; width: 100%; box-sizing: border-box; }
+    .card-title { padding-right: 0; margin-top: 35px; }
+    .admin-actions { flex-direction: column; }
+    form.delete-form { display: block; width: 100%; }
+}

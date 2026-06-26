@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Rebozo Seguro - Comunidad Libre de Adicciones{% endblock %}
+
+{% block content %}
+    <!-- Portada Principal -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <span class="badge-pill">Iniciativa Comunitaria</span>
+            <h1 class="hero-title">Rebozo Seguro</h1>
+            <h2 class="hero-subtitle">Tejiendo una comunidad libre de adicciones</h2>
+            <p class="hero-text">
+                Un rebozo abraza, cobija y sostiene. Hemos creado este espacio seguro para brindarte 
+                información científica, objetiva y libre de estigmas. Acompañamos tu proceso con educación y empatía.
+            </p>
+            <div class="hero-actions">
+                <a href="#catalogo" class="btn btn-primary">Explorar Catálogo Informativo</a>
+                <a href="#contacto" class="btn btn-outline">Líneas de Apoyo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pilares de la Comunidad -->
+    <section class="features-section">
+        <div class="features-header">
+            <span class="overline">Nuestra Filosofía</span>
+            <h3>Hilos que construyen bienestar</h3>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h4>Rigor Científico</h4>
+                <p>Datos claros sobre sustancias y riesgos, fomentando la educación consciente.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h4>Red de Apoyo</h4>
+                <p>Conectamos familias y profesionales para que nadie afronte este proceso en soledad.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h4>Prevención</h4>
+                <p>Herramientas prácticas orientadas al cuidado de la salud mental y física.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo de Sustancias -->
+    <section id="catalogo" class="catalog-section">
+        <div class="catalog-header">
+            <span class="overline">Biblioteca Educativa</span>
+            <h3>Catálogo de Sustancias</h3>
+            <p>Conoce los niveles de riesgo, efectos y tratamientos validados.</p>
+        </div>
+
+        <div class="grid-cards">
+            {% for droga in drogas %}
+                <article class="info-card">
+                    <div class="card-header">
+                        <!-- CORRECCIÓN: Filtro de seguridad por si el riesgo está vacío en la BD -->
+                        <span class="risk-badge {{ (droga.riesgo_adiccion or 'desconocido')|lower|replace(' ', '-') }}">
+                            Riesgo: {{ droga.riesgo_adiccion or 'No clasificado' }}
+                        </span>
+                        <h2 class="card-title">{{ droga.nombre }}</h2>
+                        <span class="card-category">{{ droga.tipo_droga.nombre if droga.tipo_droga else 'Sin categoría' }}</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- CORRECCIÓN: Filtro de seguridad para descripciones vacías -->
+                        <p>{{ droga.descripcion or 'Información detallada en proceso de actualización por nuestra comunidad.' }}</p>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <a href="{{ url_for('ver_droga', droga_id=droga.id) }}" class="btn btn-primary btn-block">Ver Ficha Completa</a>
+                        
+                        <!-- Controles de Administración -->
+                        <div class="admin-actions">
+                            {% if current_user.is_authenticated and (current_user.rol == 'admin' or current_user.rol == 'editor') %}
+                                <a href="{{ url_for('editar_droga', droga_id=droga.id) }}" class="btn btn-warning btn-sm">Editar</a>
+                            {% endif %}
+                            
+                            {% if current_user.is_authenticated and current_user.rol == 'admin' %}
+                                <form action="{{ url_for('eliminar_droga', droga_id=droga.id) }}" method="POST" class="delete-form">
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta sustancia del registro?');">Eliminar</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon"></div>
+                    <p>El catálogo se encuentra en actualización. Vuelve pronto.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Banner de Ayuda -->
+    <section id="contacto" class="support-banner">
+        <div class="support-content">
+            <h3>¿Necesitas orientación confidencial?</h3>
+            <p>No estás solo. Existen profesionales listos para escucharte y ayudarte las 24 horas del día.</p>
+            <div class="phone-number">Línea de la Vida: <strong>714 140 8927</strong></div>
+        </div>
+    </section>
+{% endblock %}
