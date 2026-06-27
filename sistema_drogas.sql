@@ -1,4 +1,4 @@
-SET SESSION sql_require_primary_key = 0;
+SET SESSION sql_require_primary_key = 0; -- Desactiva la restricción de overview de claves primarias --
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
